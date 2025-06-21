@@ -1,0 +1,12 @@
+<resources>
+    <color name="colorPrimary">#90CAF9</color>
+    <color name="colorPrimaryVariant">#1976D2</color>
+    <color name="colorAccent">#FFB74D</color>
+    <color name="colorBackground">#121212</color>
+    <color name="colorSurface">#1E1E1E</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorTextSecondary">#BDBDBD</color>
+    <color name="colorError">#EF9A9A</color>
+    <color name="colorIncome">#81C784</color>
+    <color name="colorExpense">#E57373</color>
+</resources> 
