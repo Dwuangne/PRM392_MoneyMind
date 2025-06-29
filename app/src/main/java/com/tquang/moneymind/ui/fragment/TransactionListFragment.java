@@ -23,6 +23,7 @@ import com.tquang.moneymind.model.Transaction;
 import com.tquang.moneymind.ui.activity.AddEditTransactionActivity;
 import com.tquang.moneymind.ui.adapter.SwipeHelper;
 import com.tquang.moneymind.ui.adapter.TransactionAdapter;
+import com.tquang.moneymind.utils.ThemeManager;
 
 import java.util.List;
 
@@ -35,10 +36,15 @@ public class TransactionListFragment extends Fragment implements
     private TransactionDao transactionDao;
     private TransactionService transactionService;
     private ImageButton fabAddTransaction;
+    private ThemeManager themeManager;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Áp dụng theme
+        themeManager = new ThemeManager(requireContext());
+        themeManager.applyTheme();
+        
         View view = inflater.inflate(R.layout.fragment_transaction_list, container, false);
 
         rvTransactions = view.findViewById(R.id.rvTransactions);

@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/colorBackground"
     tools:context=".ui.activity.AddEditTransactionActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -57,14 +59,17 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:checked="true"
-                    android:text="Expense" />
+                    android:text="Expense"
+                    android:textColor="@color/colorText" />
+
 
                 <RadioButton
                     android:id="@+id/rbIncome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Income" />
+                    android:text="Income"
+                    android:textColor="@color/colorText"/>
             </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout

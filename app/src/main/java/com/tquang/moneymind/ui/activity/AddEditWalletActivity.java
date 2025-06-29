@@ -18,6 +18,7 @@ import com.tquang.moneymind.data.repository.WalletCategoryDao;
 import com.tquang.moneymind.data.repository.WalletDao;
 import com.tquang.moneymind.model.Wallet;
 import com.tquang.moneymind.model.WalletCategory;
+import com.tquang.moneymind.utils.ThemeManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class AddEditWalletActivity extends AppCompatActivity {
 
     private WalletDao walletDao;
     private WalletCategoryDao walletCategoryDao;
+    private ThemeManager themeManager;
 
     private List<WalletCategory> categoryList;
     private Wallet currentWallet;
@@ -38,6 +40,10 @@ public class AddEditWalletActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Áp dụng theme trước khi tạo view
+        themeManager = new ThemeManager(this);
+        themeManager.applyTheme();
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_wallet);
 

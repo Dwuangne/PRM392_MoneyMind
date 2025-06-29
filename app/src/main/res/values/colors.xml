@@ -1,20 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#1976D2</color>
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Chủ đạo -->
+    <color name="colorPrimary">#1976D2</color> <!-- blue -->
     <color name="colorPrimaryVariant">#1565C0</color>
-    <color name="colorAccent">#FF9800</color>
+    <color name="colorAccent">#FF9800</color> <!-- orange -->
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorSurface">#F5F5F5</color>
+
+    <!-- Văn bản -->
     <color name="colorText">#222222</color>
     <color name="colorTextSecondary">#757575</color>
+
+    <!-- Khác -->
     <color name="colorError">#D32F2F</color>
-    <color name="colorIncome">#388E3C</color>
-    <color name="colorExpense">#D32F2F</color>
+    <color name="colorIncome">#388E3C</color>   <!-- xanh lá -->
+    <color name="colorExpense">#D32F2F</color>  <!-- đỏ -->
 </resources>

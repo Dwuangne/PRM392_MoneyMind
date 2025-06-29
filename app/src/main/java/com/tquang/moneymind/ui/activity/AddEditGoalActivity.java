@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.tquang.moneymind.R;
 import com.tquang.moneymind.data.repository.MonthlyGoalDao;
 import com.tquang.moneymind.model.MonthlyGoal;
+import com.tquang.moneymind.utils.ThemeManager;
 
 public class AddEditGoalActivity extends AppCompatActivity {
     public static final String EXTRA_GOAL_ID = "goal_id";
@@ -18,9 +19,14 @@ public class AddEditGoalActivity extends AppCompatActivity {
     private Button btnSaveGoal;
     private MonthlyGoalDao goalDao;
     private MonthlyGoal goal;
+    private ThemeManager themeManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        // Áp dụng theme trước khi tạo view
+        themeManager = new ThemeManager(this);
+        themeManager.applyTheme();
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_goal);
 
