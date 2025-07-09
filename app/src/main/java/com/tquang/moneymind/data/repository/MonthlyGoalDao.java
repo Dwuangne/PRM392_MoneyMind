@@ -72,7 +72,40 @@ public class MonthlyGoalDao {
         db.close();
         return list;
     }
+    public List<MonthlyGoal> getMonthlyGoalsBetween(int startYear, int startMonth, int endYear, int endMonth) {
+        List<MonthlyGoal> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+        String selection = "isDelete = 0 AND ((year > ?) OR (year = ? AND month >= ?)) AND ((year < ?) OR (year = ? AND month <= ?))";
+        String[] selectionArgs = new String[]{
+                String.valueOf(startYear), String.valueOf(startYear), String.valueOf(startMonth),
+                String.valueOf(endYear), String.valueOf(endYear), String.valueOf(endMonth)
+        };
+
+        Cursor cursor = db.query("MonthlyGoal", null, selection, selectionArgs, null, null, "year DESC, month DESC");
+
+        if (cursor.moveToFirst()) {
+            do {
+                MonthlyGoal goal = new MonthlyGoal(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("month")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("year")),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow("goalAmount")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("categoryId")),
+                        cursor.isNull(cursor.getColumnIndexOrThrow("walletId")) ? null : cursor.getInt(cursor.getColumnIndexOrThrow("walletId")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("note")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("createdAt")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("updatedAt")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("isDelete")) == 1
+                );
+                list.add(goal);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return list;
+    }
     public MonthlyGoal getMonthlyGoalById(int goalId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.query("MonthlyGoal", null, "id = ?", new String[]{String.valueOf(goalId)}, null, null, null);
