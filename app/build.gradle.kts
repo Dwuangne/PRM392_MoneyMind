@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-
+    implementation (libs.opencsv)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
