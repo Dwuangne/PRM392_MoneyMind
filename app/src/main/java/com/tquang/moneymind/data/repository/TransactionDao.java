@@ -125,6 +125,39 @@ public class TransactionDao {
         db.close();
         return list;
     }
+    public List<Transaction> getTransactionsBetween(String startDate, String endDate) {
+        List<Transaction> list = new ArrayList<>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String selection = "isDelete = 0 AND date BETWEEN ? AND ?";
+        String[] selectionArgs = new String[]{startDate, endDate};
+
+        Cursor cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, "date DESC");
+
+        if (cursor.moveToFirst()) {
+            do {
+                Transaction transaction = new Transaction(
+                        cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow("amount")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("date")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("note")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("walletId")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("categoryId")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("type")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("activity")),
+                        cursor.isNull(cursor.getColumnIndexOrThrow("monthlyGoalId")) ? null : cursor.getInt(cursor.getColumnIndexOrThrow("monthlyGoalId")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("createdAt")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("updatedAt")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("isDelete")) == 1
+                );
+                list.add(transaction);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return list;
+    }
 
     public double getTotalExpenseByCategory(int categoryId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
