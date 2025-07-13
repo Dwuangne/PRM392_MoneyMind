@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
-import android.net.ParseException;
+import java.text.ParseException;
 import android.net.Uri;
 import android.os.Build;
 import android.content.res.Configuration;
@@ -18,8 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
@@ -27,7 +25,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.PopupMenu;
@@ -56,10 +53,23 @@ import com.tquang.moneymind.ui.fragment.HomeFragment;
 import com.tquang.moneymind.ui.fragment.TransactionListFragment;
 import com.tquang.moneymind.ui.fragment.WalletListFragment;
 import com.tquang.moneymind.ui.fragment.GoalListFragment;
+import com.tquang.moneymind.utils.ThemeManager;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private FloatingActionButton fab;
+    private ThemeManager themeManager;
+    private FloatingActionButton toggleThemeButton;
+    
+    // DAO objects
+    private TransactionDao transactionDao;
+    private MonthlyGoalDao goalDao;
+    private WalletDao walletDao;
+    private WalletCategoryDao categoryDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +80,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize DAO objects
+        transactionDao = new TransactionDao(this);
+        goalDao = new MonthlyGoalDao(this);
+        walletDao = new WalletDao(this);
+        categoryDao = new WalletCategoryDao(this);
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         fab = findViewById(R.id.fab);
+        toggleThemeButton = findViewById(R.id.toggle_theme_button);
 
         setupBottomNavigation();
         setupThemeToggle();
@@ -167,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateThemeIcon() {
         boolean isDarkMode = themeManager.isDarkMode();
         int iconRes = isDarkMode ? R.drawable.ic_light_mode : R.drawable.ic_dark_mode;
-        toggleThemeButton.setImageResource(iconRes);
+        toggleThemeButton.setImageDrawable(ContextCompat.getDrawable(this, iconRes));
     }
 
     private void toggleTheme() {
