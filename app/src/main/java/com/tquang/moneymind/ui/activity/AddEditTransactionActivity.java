@@ -25,6 +25,7 @@ import com.tquang.moneymind.data.repository.WalletDao;
 import com.tquang.moneymind.model.Transaction;
 import com.tquang.moneymind.model.Wallet;
 import com.tquang.moneymind.model.WalletCategory;
+import com.tquang.moneymind.utils.ThemeManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class AddEditTransactionActivity extends AppCompatActivity {
     private TransactionService transactionService;
     private WalletDao walletDao;
     private WalletCategoryDao categoryDao;
+    private ThemeManager themeManager;
 
     private Transaction currentTransaction;
     private int transactionId = INVALID_ID;
@@ -56,6 +58,10 @@ public class AddEditTransactionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        // Áp dụng theme trước khi tạo view
+        themeManager = new ThemeManager(this);
+        themeManager.applyTheme();
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_transaction);
 

@@ -9,7 +9,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/colorBackground">
 
     <!-- Header with title and add button -->
     <LinearLayout
@@ -30,8 +31,8 @@
             android:text="Goals &amp; Spending"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            android:gravity="start" />
+            android:textColor="@color/colorText"/>
+<!--            android:gravity="start" -->
 
         <ImageButton
             android:id="@+id/fab_add_goal"
@@ -40,8 +41,8 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_add"
             android:contentDescription="Add Goal"
-            app:tint="@color/colorPrimary"
-            android:padding="12dp" />
+            app:tint="@color/colorText"
+            android:layout_marginEnd="32dp"/>
 
     </LinearLayout>
 
@@ -72,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tháng 12/2024"
+            android:textColor="@color/colorText"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginStart="16dp"

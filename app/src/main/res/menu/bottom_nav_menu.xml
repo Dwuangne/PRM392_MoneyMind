@@ -7,10 +7,6 @@
         android:id="@+id/nav_transactions"
         android:icon="@drawable/ic_list"/>
     <item
-        android:id="@+id/nav_placeholder"
-        android:title=""
-        android:enabled="false"/>
-    <item
         android:id="@+id/nav_wallets"
         android:icon="@drawable/ic_wallet"/>
     <item

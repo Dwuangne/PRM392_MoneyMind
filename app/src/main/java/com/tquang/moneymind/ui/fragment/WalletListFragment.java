@@ -22,6 +22,7 @@ import com.tquang.moneymind.model.Wallet;
 import com.tquang.moneymind.ui.activity.AddEditWalletActivity;
 import com.tquang.moneymind.ui.adapter.SwipeHelper;
 import com.tquang.moneymind.ui.adapter.WalletAdapter;
+import com.tquang.moneymind.utils.ThemeManager;
 
 import java.util.List;
 
@@ -33,10 +34,15 @@ public class WalletListFragment extends Fragment implements
     private WalletAdapter adapter;
     private WalletDao walletDao;
     private ImageButton fabAddWallet;
+    private ThemeManager themeManager;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Áp dụng theme
+        themeManager = new ThemeManager(requireContext());
+        themeManager.applyTheme();
+        
         View view = inflater.inflate(R.layout.fragment_wallet_list, container, false);
 
         rvWallets = view.findViewById(R.id.rvWallets);

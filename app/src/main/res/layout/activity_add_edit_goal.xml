@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@android:color/white">
+    android:background="@color/colorBackground">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,6 +12,7 @@
         android:text="Chỉnh sửa mục tiêu tháng"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/colorText"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="16dp"/>
 
@@ -22,6 +23,8 @@
         android:hint="Số tiền mục tiêu (VNĐ)"
         android:inputType="numberDecimal"
         android:padding="12dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextSecondary"
         android:textSize="16sp"
         android:layout_marginBottom="16dp"/>
 
@@ -31,6 +34,8 @@
         android:layout_height="wrap_content"
         android:hint="Ghi chú"
         android:padding="12dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorTextSecondary"
         android:textSize="16sp"
         android:layout_marginBottom="24dp"/>
 
@@ -41,7 +46,7 @@
         android:text="Lưu mục tiêu"
         android:textAllCaps="false"
         android:textSize="16sp"
-        android:backgroundTint="@android:color/holo_blue_dark"
-        android:textColor="@android:color/white"/>
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"/>
 
 </LinearLayout> 

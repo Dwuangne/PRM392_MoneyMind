@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -108,6 +109,15 @@ public class GoalListFragment extends Fragment {
         barChart.getAxisLeft().setDrawGridLines(false);
         barChart.getAxisRight().setEnabled(false);
         barChart.getLegend().setEnabled(false);
+
+        // Apply dark/light theme colors dynamically
+        int textColor = ContextCompat.getColor(requireContext(), R.color.colorText);
+        int bgColor = ContextCompat.getColor(requireContext(), R.color.colorBackground);
+
+        barChart.setBackgroundColor(bgColor);
+        barChart.getXAxis().setTextColor(textColor);
+        barChart.getAxisLeft().setTextColor(textColor);
+        barChart.getLegend().setTextColor(textColor);
     }
 
     private void setupMonthNavigation() {
