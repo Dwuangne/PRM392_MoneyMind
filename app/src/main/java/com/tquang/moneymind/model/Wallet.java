@@ -38,4 +38,5 @@ public class Wallet {
     public void setIcon(String icon) { this.icon = icon; }
     public boolean isDelete() { return isDelete; }
     public void setDelete(boolean delete) { isDelete = delete; }
+
 } 

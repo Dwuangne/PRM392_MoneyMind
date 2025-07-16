@@ -1,5 +1,6 @@
 package com.tquang.moneymind.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.tquang.moneymind.R;
 import com.tquang.moneymind.data.repository.MonthlyGoalDao;
 import com.tquang.moneymind.data.repository.TransactionDao;
@@ -22,6 +24,8 @@ import com.tquang.moneymind.ui.adapter.TransactionAdapter;
 
 import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,6 +37,9 @@ public class HomeFragment extends Fragment {
     private TransactionDao transactionDao;
     private MonthlyGoalDao goalDao;
 
+    private boolean isAscending = true;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,12 +50,51 @@ public class HomeFragment extends Fragment {
         loadDashboardData();
         loadRecentTransactions();
 
+        // Lấy tham chiếu đúng kiểu của MaterialButton
+        MaterialButton btnSortAmount = view.findViewById(R.id.btnSortAmount1);
+        btnSortAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortTransactionsByAmount();
+
+                // Cập nhật icon theo trạng thái
+                if (isAscending) {
+                    btnSortAmount.setIconResource(R.drawable.arrow_upward_24px);
+                } else {
+                    btnSortAmount.setIconResource(R.drawable.arrow_downward_24px);
+                }
+
+                isAscending = !isAscending; // Đảo trạng thái
+            }
+        });
+
         return view;
     }
+
 
     private void initDaos() {
         transactionDao = new TransactionDao(getContext());
         goalDao = new MonthlyGoalDao(getContext());
+    }
+    private void sortTransactionsByAmount() {
+        if (transactionAdapter == null) return; // Prevent NPE
+        List<Transaction> transactionList = transactionAdapter.getTransactions(); // Get the current list from adapter
+        if (isAscending) {
+            Collections.sort(transactionList, new Comparator<Transaction>() {
+                @Override
+                public int compare(Transaction t1, Transaction t2) {
+                    return Double.compare(t1.getAmount(), t2.getAmount());
+                }
+            });
+        } else {
+            Collections.sort(transactionList, new Comparator<Transaction>() {
+                @Override
+                public int compare(Transaction t1, Transaction t2) {
+                    return Double.compare(t2.getAmount(), t1.getAmount());
+                }
+            });
+        }
+        transactionAdapter.updateTransactions(transactionList); // Notify adapter to update the list and UI
     }
 
     private void initViews(View view) {

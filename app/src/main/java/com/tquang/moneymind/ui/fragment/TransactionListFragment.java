@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.ImageButton;
+
+import com.google.android.material.button.MaterialButton;
 import com.tquang.moneymind.R;
 import com.tquang.moneymind.data.repository.TransactionDao;
 import com.tquang.moneymind.data.repository.TransactionService;
@@ -25,6 +27,8 @@ import com.tquang.moneymind.ui.adapter.SwipeHelper;
 import com.tquang.moneymind.ui.adapter.TransactionAdapter;
 import com.tquang.moneymind.utils.ThemeManager;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TransactionListFragment extends Fragment implements 
@@ -37,6 +41,7 @@ public class TransactionListFragment extends Fragment implements
     private TransactionService transactionService;
     private ImageButton fabAddTransaction;
     private ThemeManager themeManager;
+    private boolean isAscending = true;
 
     @Nullable
     @Override
@@ -64,14 +69,51 @@ public class TransactionListFragment extends Fragment implements
             Intent intent = new Intent(getContext(), AddEditTransactionActivity.class);
             startActivity(intent);
         });
+        MaterialButton btnSortAmount = view.findViewById(R.id.btnSortAmount);
+        btnSortAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sortTransactionsByAmount();
+
+                // Cập nhật icon theo trạng thái
+                if (isAscending) {
+                    btnSortAmount.setIconResource(R.drawable.arrow_upward_24px);
+                } else {
+                    btnSortAmount.setIconResource(R.drawable.arrow_downward_24px);
+                }
+
+                isAscending = !isAscending; // Đảo trạng thái
+            }
+        });
 
         return view;
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
         loadTransactions();
+    }
+    private void sortTransactionsByAmount() {
+        if (adapter == null) return; // Prevent NPE
+        List<Transaction> transactionList = adapter.getTransactions(); // Get the current list from adapter
+        if (isAscending) {
+            Collections.sort(transactionList, new Comparator<Transaction>() {
+                @Override
+                public int compare(Transaction t1, Transaction t2) {
+                    return Double.compare(t1.getAmount(), t2.getAmount());
+                }
+            });
+        } else {
+            Collections.sort(transactionList, new Comparator<Transaction>() {
+                @Override
+                public int compare(Transaction t1, Transaction t2) {
+                    return Double.compare(t2.getAmount(), t1.getAmount());
+                }
+            });
+        }
+        adapter.updateTransactions(transactionList); // Notify adapter to update the list and UI
     }
 
     private void loadTransactions() {
@@ -109,6 +151,7 @@ public class TransactionListFragment extends Fragment implements
     // SwipeHelper.SwipeHelperCallback implementation
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+        if (adapter == null) return; // Prevent NPE
         int position = viewHolder.getAdapterPosition();
         Transaction transaction = adapter.getTransactionAt(position);
 

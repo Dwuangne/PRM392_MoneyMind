@@ -25,6 +25,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         this.transactionList = transactionList;
     }
 
+    public List<Transaction> getTransactions() {
+        return transactionList;
+    }
     public void setOnTransactionClickListener(OnTransactionClickListener listener) {
         this.listener = listener;
     }
